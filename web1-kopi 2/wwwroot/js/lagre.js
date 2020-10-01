@@ -8,13 +8,8 @@ function validerOgLagreStrekning() {
     //const priceOK = validerType($("#price").val());
 
     const typeOK = validerType($("#type").val());
-
-
-
-
-
    
-    if (fraOK && tilOK && datefraOK && datereturOK && typeOK  ) {
+    if (fraOK && tilOK && datefraOK && datereturOK && typeOK) {
         lagreStrekning();
     }
 }

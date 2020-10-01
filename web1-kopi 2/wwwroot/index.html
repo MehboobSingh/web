@@ -75,7 +75,7 @@
 
 
         <div class="card card-body">
-            <div class="autocomplete" style="display:none" id="til" onchange="datoDisplay()">
+            <div class="autocomplete" style="display:none" id="til" >
                 <label for="tilInput"> Til: </label>
 
                 <input id="tilInput" type="text" onchange="validerTurTil(this.value)" required placeholder="Reise til" class="form-control h-70">
@@ -142,18 +142,15 @@
 
 
 
-            <button class="btn btn-success" id="checkout-button" onclick="validerOgLagreStrekning()">Betaling</button>
+            <button class="btn btn-success" id="checkout-button" onclick="validerOgLagreStrekning()"  >Betaling  </button>
             <a href="index.html" class="btn btn-warning" id="checkout-button">Cancel</a>
 
             <div class="container">
 
                 <div id="billetene"></div>
                 <div id="feil" style="color: red"></div>
-                <a href="lagre.html" class="btn btn-primary">Lagre</a>
+         
             </div>
-
-
-            <div id="feil"></div>
 
 
         </div>

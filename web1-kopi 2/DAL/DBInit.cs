@@ -176,7 +176,7 @@ namespace Gruppeoppgave1.DAL
 
 
             db.Billeter.AddRange(nybilleter);
-           db.Strekninger.AddRange(nystrekning);
+            db.Strekninger.AddRange(nystrekning);
 
             db.SaveChanges();
         }

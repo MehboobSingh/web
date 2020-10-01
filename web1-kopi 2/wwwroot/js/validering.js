@@ -52,12 +52,6 @@ function validerTil(til) {
     }
 }
 
-
-
-
-
-
-
 function validerTurTil(til) {
     var regexp = /^[a-zA-ZÆØÅæøå]{2,30}$/;
     var ok = regexp.test(til);
@@ -79,6 +73,7 @@ function validerDato(dateretur) {
     var regexp = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
     var ok = regexp.test(dateretur);
     if (!ok) {
+      
         $("#feilDateRetur").html("dato er ikke gyldig");
         return false;
     } else {

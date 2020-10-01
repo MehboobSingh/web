@@ -1,17 +1,25 @@
-﻿$(function () {
-    HentalleBilleter();
-});
-
+﻿
+var ruter = [];
 function HentalleBilleter() {
-    $.get("Home/HentalleBilleter", function (strekninger) {
-        formateStrekninger(strekninger);
+    $.get("Home/HentalleStrekninger", function (strekninger) {
+        hentEnStekning(strekninger);
     })
         .fail(function () {
             $("#feil").html("Feil på server - prøv igjen senere");
         });
 }
 
-function formaterStrekninger(strekninger) {
+
+function hentEnStekning(strekninger) {
+    for (let strekning of strekninger) {
+        ruter.push(strekning.fra);
+        console.log(strekning.fra);
+
+    }
+}
+
+
+/*function formaterStrekninger(strekninger) {
     let ut = "<table class='table table-striped'>" +
         "<tr>" +
         "<th>Fra</th><th>Til</th><th>DateFra</th><th>DateRetur</th><th>Type</th><th>Price</th><th></th><th></th>" +
@@ -32,7 +40,7 @@ function formaterStrekninger(strekninger) {
     ut += "</table>";
     $("#billetene").html(ut);
 }
-
+*/
 function slettBillet(SId) {
     const url = "Home/slettBillet?id=" + SId;
 
@@ -48,13 +56,7 @@ function slettBillet(SId) {
 
 
 
-var ruter = [
 
-    "Askim", "Asker", "Bærum", "Buskerud", "Bergen", "Carlstad", "Campen", "Elverum",
-    "Fagerborg", "Gullestad", "Hamar", "Helsinki", "Ila", "Jumbo", "Kasper", "Lillehammer",
-    "Manglerud", "Nanestad", "Oslo","Ormoya", "Pilested", "Ramstad", "Sinsen", "Stavanger","Tvestad","Trondiheim", "Ulven", "Veitvet", "Warholm", "Yamstad", "Zeyla"
-
-];
 
 
 function autocomplete(inp, arr) {
@@ -173,12 +175,13 @@ function turTil() {
     if (fra !== null) {
 
         til.style.display = "initial";
-   
 
+
+    }
 }
 
 
-    function datoDisplay() {
+  function datoDisplay() {
 
         if (til !== null) {
 
