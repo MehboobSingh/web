@@ -1,27 +1,156 @@
-﻿/*const fraInput = document.getElementById("fraInput")
-const datoType = document.getElementById("datoType");
-const checkbox = document.getElementById('myCheck');
-const checkout = document.getElementById('checkout-button');
+﻿
+var ruter = [];
+function HentalleBilleter() {
+    $.get("Home/HentalleStrekninger", function (strekninger) {
+        hentEnStekning(strekninger);
+    })
+        .fail(function () {
+            $("#feil").html("Feil på server - prøv igjen senere");
+        });
+}
 
 
-*/
+function hentEnStekning(strekninger) {
+    for (let strekning of strekninger) {
+        ruter.push(strekning.fra);
+
+    }
+}
+
+
+
+function slettBillet(SId) {
+    const url = "Home/slettBillet?id=" + SId;
+
+    $.get(url, function () {
+        window.location.href = 'index.html';
+    })
+        .fail(function () {
+            $("#feil").html("Feil på server - prøv igjen senere");
+        });
+}
+
+
+
+
+
+
+
+
+function autocomplete(inp, arr) {
+    HentalleBilleter();
+
+    var currentFocus;
+ 
+    inp.addEventListener("input", function (e) {
+        var a, b, i, val = this.value;
+     
+        closeAllLists();
+        if (!val) { return false; }
+        currentFocus = -1;
+
+        a = document.createElement("DIV");
+        a.setAttribute("id", this.id + "autocomplete-list");
+        a.setAttribute("class", "autocomplete-items");
+      
+        this.parentNode.appendChild(a);
+     
+        for (i = 0; i < arr.length; i++) {
+         
+            if (arr[i].substr(0, val.length).toUpperCase() == val.toUpperCase()) {
+    
+                b = document.createElement("DIV");
+              
+                b.innerHTML = "<strong>" + arr[i].substr(0, val.length) + "</strong>";
+                b.innerHTML += arr[i].substr(val.length);
+              
+                b.innerHTML += "<input type='hidden' value='" + arr[i] + "'>";
+                
+                b.addEventListener("click", function (e) {
+                   
+                    inp.value = this.getElementsByTagName("input")[0].value;
+                   
+                    closeAllLists();
+                });
+                a.appendChild(b);
+            }
+        }
+    });
+ 
+    inp.addEventListener("keydown", function (e) {
+        var x = document.getElementById(this.id + "autocomplete-list");
+        if (x) x = x.getElementsByTagName("div");
+        if (e.keyCode == 40) {
+         
+            currentFocus++;
+          
+            addActive(x);
+        } else if (e.keyCode == 38) { 
+            currentFocus--;
+       
+            addActive(x);
+        } else if (e.keyCode == 13) {
+   
+            e.preventDefault();
+            if (currentFocus > -1) {
+              
+                if (x) x[currentFocus].click();
+            }
+        }
+    });
+    function addActive(x) {
+   
+        if (!x) return false;
+  
+        removeActive(x);
+        if (currentFocus >= x.length) currentFocus = 0;
+        if (currentFocus < 0) currentFocus = (x.length - 1);
+      
+        x[currentFocus].classList.add("autocomplete-active");
+    }
+    function removeActive(x) {
+       
+        for (var i = 0; i < x.length; i++) {
+            x[i].classList.remove("autocomplete-active");
+        }
+    }
+    function closeAllLists(elmnt) {
+        var x = document.getElementsByClassName("autocomplete-items");
+        for (var i = 0; i < x.length; i++) {
+            if (elmnt != x[i] && elmnt != inp) {
+                x[i].parentNode.removeChild(x[i]);
+            }
+        }
+    }
+    document.addEventListener("click", function (e) {
+        closeAllLists(e.target);
+    });
+}
+
+
+autocomplete(document.getElementById("fraInput"), ruter);
+autocomplete(document.getElementById("tilInput"), ruter);
 
 
 function validerFraogTiltur(fra) {
-    var regexp = /^[a-zA-Z ÆØÅæøå ]{2,30}$/;
-    var ok = regexp.test(fra);
-    if (!ok) {
+    let gyldigInput = fra.charAt(0).toUpperCase() + fra.slice(1);
+    var backendOK = ruter.find(() => gyldigInput);
+
+    let regexp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
+    let ok = regexp.test(gyldigInput);
+    if (backendOK !== gyldigInput) {
+        document.getElementById("feilFra").innerHTML = "Vi har ingen rute fra denne byen";
+        return false;
+    }else if (!ok) {
 
         document.getElementById("feilFra").innerHTML = "Feil  reiseFra";
-    
+
+
         return false;
 
-    } else  {
+    } else {
         document.getElementById("feilFra").innerHTML = "";
-
         document.getElementById("til").style.display = "initial";
-
-       
         return true;
     }
 
@@ -29,7 +158,7 @@ function validerFraogTiltur(fra) {
 
 function validerFra(fra) {
     const regexp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
-    const ok = regexp.test(fra);
+    const ok = regexp.test(til);
     if (!ok) {
         $("#feilFra").html("Fra må bestå av 2 til 20 bokstaver");
         return false;
@@ -39,6 +168,7 @@ function validerFra(fra) {
         return true;
     }
 }
+
 function validerTil(til) {
     const regexp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
     const ok = regexp.test(til);
@@ -53,8 +183,10 @@ function validerTil(til) {
 }
 
 function validerTurTil(til) {
-    var regexp = /^[a-zA-ZÆØÅæøå]{2,30}$/;
-    var ok = regexp.test(til);
+       const regexp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
+        let turTilVerdi = document.getElementById("tilInput").value;
+        let gyldigTilInput = turTilVerdi.charAt(0).toUpperCase() + turTilVerdi.slice(1);
+        var ok = regexp.test(ruter.find(() => gyldigTilInput));
     if (!ok) {
         $("#feilTil").html("Tur start  må velges");
         return false;
