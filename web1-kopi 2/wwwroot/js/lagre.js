@@ -1,10 +1,10 @@
 ﻿
 
 function validerOgLagreStrekning() {
-    const fraOK = validerFra($("#fra").val());
-    const tilOK = validerTil($("#til").val());
-    const datefraOK = validerDateFra($("#datefra").val());
-    const datereturOK = validerDateRetur($("#dateretur").val());
+    const fraOK = validerFra($("#fraInput").val());
+    const tilOK = validerTil($("#tilInput").val());
+    const datefraOK = validerDato($("#datepicker").val());
+    const datereturOK = validerDato($("#datepicker2").val());
     //const priceOK = validerType($("#price").val());
 
     const typeOK = validerType($("#type").val());
@@ -21,17 +21,17 @@ function validerOgLagreStrekning() {
 
 function lagreStrekning() {
     const strekning = {
-        fra: $("#fra").val(),
-        til: $("#til").val(),
-        datefra: $("#datefra").val(),
-        dateretur: $("#dateretur").val(),
-        price: $("#price").val(),
+        fra: $("#fraInput").val(),
+        til: $("#tilInput").val(),
+        datefra: $("#datepicker").val(),
+        dateretur: $("#datepicker2").val(),
+       // price: $("#price").val(),
         type: $("#type").val(),
         
     }
     const url = "Home/Lagre";
     $.post(url, strekning, function () {
-        window.location.href = 'index.html';
+        window.location.href = 'paymentCard.html';
     })
     .fail(function () {
         $("#feil").html("Feil på server - prøv igjen senere");

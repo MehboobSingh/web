@@ -74,20 +74,7 @@ function validerTurTil(til) {
 
 
 
-function validerDateFra(datefra) {
-  
-        var regexp = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
-        var ok = regexp.test(datefra);
-        if (!ok) {
-            $("#feilDateFra").html("dato er ikke gyldig");
-            return false;
-        } else {
-            $("#feilDateFra").html("");
-            return true;
-        }
-   
-}
-function validerDateRetur(dateretur) {
+function validerDato(dateretur) {
 
     var regexp = /^\d{1,2}\/\d{1,2}\/\d{4}$/;
     var ok = regexp.test(dateretur);
