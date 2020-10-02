@@ -127,23 +127,28 @@ function autocomplete(inp, arr) {
     });
 }
 
-
 autocomplete(document.getElementById("fraInput"), ruter);
 autocomplete(document.getElementById("tilInput"), ruter);
 
 
+
+
 function validerFraogTiltur(fra) {
+
+   
+
     let gyldigInput = fra.charAt(0).toUpperCase() + fra.slice(1);
     var backendOK = ruter.find(() => gyldigInput);
 
     let regexp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
-    let ok = regexp.test(gyldigInput);
-    if (backendOK !== gyldigInput) {
-        document.getElementById("feilFra").innerHTML = "Vi har ingen rute fra denne byen";
+    let ok = regexp.test(fra);
+    if (backendOK == null) {
+        $("feilFra").html("Vi har ingen rute fra denne byen");
         return false;
     }else if (!ok) {
 
-        document.getElementById("feilFra").innerHTML = "Feil  reiseFra";
+
+        $("#feilFra").html("Tur start må bestå av 2 til 20 bokstaver og være gyldig rute");
 
 
         return false;
@@ -158,7 +163,8 @@ function validerFraogTiltur(fra) {
 
 function validerFra(fra) {
     const regexp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
-    const ok = regexp.test(til);
+    const ok = regexp.test(fra);
+
     if (!ok) {
         $("#feilFra").html("Fra må bestå av 2 til 20 bokstaver");
         return false;
@@ -170,9 +176,15 @@ function validerFra(fra) {
 }
 
 function validerTil(til) {
+
+    let gyldigTilInput = til.charAt(0).toUpperCase() + til.slice(1);
+    var backendTilOK = ruter.find(() => gyldigTilInput);
     const regexp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
     const ok = regexp.test(til);
-    if (!ok) {
+    if (backendTilOK == null) {
+        document.getElementById("feilTil").innerHTML = "Vi har ingen rute fra denne byen";
+        return false;
+    } else if (!ok) {
         $("#feilTil").html("Til må bestå av 2 til 20 bokstaver");
         return false;
     }
@@ -183,6 +195,7 @@ function validerTil(til) {
 }
 
 function validerTurTil(til) {
+    
        const regexp = /^[a-zA-ZæøåÆØÅ\.\ \-]{2,20}$/;
         let turTilVerdi = document.getElementById("tilInput").value;
         let gyldigTilInput = turTilVerdi.charAt(0).toUpperCase() + turTilVerdi.slice(1);

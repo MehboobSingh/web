@@ -1,48 +1,74 @@
-﻿body, html {
-    height: 100%;
+﻿
+body, html {
+    background-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 84%,rgba(255,255,255,1) 100%),url(../img/oslo.jpg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    filter: brightness(95%);
+    height: 1200px;
+    width: 1450px;
+    background-attachment: scroll;
 }
 
 .bg {
-    /* The image used 
-     background-image: url("../img/background.jpg");
-    height: 100%;
-  
+    background-image: linear-gradient(to bottom, rgba(255,255,255,1) 0%,rgba(255,255,255,0) 40%,rgba(255,255,255,0) 84%,rgba(255,255,255,1) 100%), url(../img/oslo1.jpg);
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
-    */
+    height: 100%;
+}
+
+.img {
+    float: left;
+    padding: 70px;
+    margin: 0px;
 }
 
 .top-nav {
     float: right;
-    padding: 60px;
+    padding: 70px;
     margin: 0px;
-  
+    font-size: 20px !important;
+    color: #2b2e2b !important;
+    position: sticky;
 }
 
-.containerDiv{
+.container {
+    height: 100px;
+    width: 90%;
+    margin: 105px;
+    position: relative;
+    z-index: 30;
+    background-attachment: scroll;
+    padding-top: 200px;
+}
 
+
+.containerDiv {
     height: 40%;
     width: 40%;
     text-align: center;
-    margin: 400px;
-    background-color: lightcyan;
+    margin: 100px;
+    background-color: black;
+}
+
+.navbar-nav {
+    color: black;
 }
 
 .autocomplete {
     /*the container must be positioned relative:*/
     position: relative;
-    display: inline-block;
-    width:auto;
+    display: block;
+    width: initial;
 }
 
 .autocomplete-items {
-    position: absolute;
+    position: relative;
     border: 1px solid #d4d4d4;
     border-bottom: none;
     border-top: none;
     z-index: 99;
-
     /*position the autocomplete items to be the same width as the container:*/
     top: 100%;
     left: 0;
@@ -50,10 +76,6 @@
 }
 
     .autocomplete-items div {
-        padding: 10px;
-        cursor: pointer;
-        background-color: #fff;
-        border-bottom: 1px solid #d4d4d4;
     }
 
         .autocomplete-items div:hover {
@@ -78,6 +100,7 @@
     box-shadow: 0 1px 3px 0 #e6ebf1;
     -webkit-transition: box-shadow 150ms ease;
     transition: box-shadow 150ms ease;
+    width: initial;
 }
 
 .StripeElement--focus {
@@ -91,11 +114,15 @@
 .StripeElement--webkit-autofill {
     background-color: #fefde5 !important;
 }
-.n-w.card{
-    float:right;
-}
-.n-w .link{
-    text-decoration:underline;
-    color: black;
 
+.n-w.card {
+    float: right;
+}
+
+.n-w .link {
+    text-decoration: underline;
+    color: black;
+}
+
+.btn btn-success {
 }
